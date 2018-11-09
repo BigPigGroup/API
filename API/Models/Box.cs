@@ -6,8 +6,14 @@ namespace API.Models {
 
 	[Table("Box")]
 	public class Box {
+		public Box(int boxId) {
+			BoxId = boxId;
+		}
+
 		[Key]
-		public int BoxNo { get; set; }
+		[Column("box_no")]
+		public int BoxId { get; set; }
+		
 		public virtual TemperatureSensor TemperatureSensor { get; set; }
 	}
 

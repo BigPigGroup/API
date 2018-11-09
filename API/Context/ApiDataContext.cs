@@ -17,10 +17,13 @@ namespace API.Context {
 			}
 		}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			modelBuilder.Entity<TemperatureSensor>().HasKey(c => new {c.BoxId, c.Cts});
+		}
 
-		public DbSet<Box> BoxTable { get; set; }
-		public DbSet<TemperatureSensor> TemperatureTable { get; set; }
+		public DbSet<Box> Box { get; set; }
+
+		public DbSet<TemperatureSensor> Temperature { get; set; }
 	}
 
 }

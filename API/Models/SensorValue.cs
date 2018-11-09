@@ -1,11 +1,19 @@
-using System.Runtime.Serialization;
+using API.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace API.Models {
 
-	[DataContract]
 	public class SensorValue {
-		[DataMember(Name = "value")]
 		public string Value { get; }
+
+		[JsonConverter(typeof(StringEnumConverter))] //Maps a string to an enum
+		public SensorEnum SensorType { get; }
+
+		public SensorValue(string value, SensorEnum sensorType) {
+			Value = value;
+			SensorType = sensorType;
+		}
 	}
 
 }
