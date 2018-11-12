@@ -17,6 +17,8 @@ namespace API {
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                //Makes the API accessible for other devices
+                .UseUrls("http://*:6000/");
     }
 }
