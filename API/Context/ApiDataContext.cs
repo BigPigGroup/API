@@ -10,7 +10,7 @@ namespace API.Context {
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			if (!optionsBuilder.IsConfigured) {
-				optionsBuilder.UseSqlServer("Server=localhost;Database=PigFarmDB;Trusted_Connection=True;");
+				optionsBuilder.UseSqlServer("Server=192.168.1.3;Database=PigFarmDB;Integrated Security=False;User ID=sa;Password=Pa$$w0rd;");
 			}
 		}
 
