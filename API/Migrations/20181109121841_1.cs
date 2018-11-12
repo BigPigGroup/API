@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class Temperature10 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,38 +12,37 @@ namespace API.Migrations
                 name: "Box",
                 columns: table => new
                 {
-                    box_no = table.Column<int>(nullable: false)
+                    BoxNo = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Box", x => x.box_no);
+                    table.PrimaryKey("PK_Box", x => x.BoxNo);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Temperature",
                 columns: table => new
                 {
-                    box_no = table.Column<int>(nullable: false),
-                    temperature = table.Column<float>(nullable: false),
-                    c_ts = table.Column<DateTime>(nullable: false)
+                    TemperatureValue = table.Column<float>(nullable: false),
+                    CtsNo = table.Column<DateTime>(nullable: false),
+                    BoxNo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Temperature", x => new { x.box_no, x.c_ts });
+                    table.PrimaryKey("PK_Temperature", x => new { x.BoxNo, x.CtsNo });
                     table.ForeignKey(
-                        name: "FK_Temperature_Box_box_no",
-                        column: x => x.box_no,
+                        name: "FK_Temperature_Box_BoxNo",
+                        column: x => x.BoxNo,
                         principalTable: "Box",
-                        principalColumn: "box_no",
+                        principalColumn: "BoxNo",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Temperature_box_no",
+                name: "IX_Temperature_BoxNo",
                 table: "Temperature",
-                column: "box_no",
-                unique: false);
+                column: "BoxNo");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

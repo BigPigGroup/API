@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApiDataContext))]
-    [Migration("20181109090035_Temperature1.0")]
-    partial class Temperature10
+    [Migration("20181109121841_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,31 +23,26 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Box", b =>
                 {
-                    b.Property<int>("BoxId")
+                    b.Property<int>("BoxNo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("box_no")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("BoxId");
+                    b.HasKey("BoxNo");
 
                     b.ToTable("Box");
                 });
 
             modelBuilder.Entity("API.Models.TemperatureSensor", b =>
                 {
-                    b.Property<int>("BoxId")
-                        .HasColumnName("box_no");
+                    b.Property<int>("BoxNo");
 
-                    b.Property<DateTime>("Cts")
-                        .HasColumnName("c_ts");
+                    b.Property<DateTime>("CtsNo");
 
-                    b.Property<float>("TemperatureValue")
-                        .HasColumnName("temperature");
+                    b.Property<float>("TemperatureValue");
 
-                    b.HasKey("BoxId", "Cts");
+                    b.HasKey("BoxNo", "CtsNo");
 
-                    b.HasIndex("BoxId")
-                        .IsUnique();
+                    b.HasIndex("BoxNo");
 
                     b.ToTable("Temperature");
                 });
@@ -56,7 +51,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Box", "Box")
                         .WithOne("TemperatureSensor")
-                        .HasForeignKey("API.Models.TemperatureSensor", "BoxId")
+                        .HasForeignKey("API.Models.TemperatureSensor", "BoxNo")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

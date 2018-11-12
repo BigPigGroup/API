@@ -4,26 +4,22 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace API.Models {
 
-	[Table("Temperature")]
 	public partial class TemperatureSensor {
-		public TemperatureSensor(int boxId, float temperatureValue, DateTime cts) {
-			BoxId = boxId;
+
+		public TemperatureSensor(float temperatureValue, DateTime ctsNo, int boxNo) {
 			TemperatureValue = temperatureValue;
-			Cts = cts;
+			CtsNo = ctsNo;
+			BoxNo = boxNo;
 		}
 
-		[ForeignKey("Box")]
-		[Column("box_no")]
-		public int BoxId { get; set; }
-
-		[Column("temperature")]
 		public float TemperatureValue { get; set; }
 
-		[Column("c_ts")]
-		public DateTime Cts { get; set; }
-
+		public DateTime CtsNo { get; set; }
 		
+		public int BoxNo { get; set; }
+
 		public virtual Box Box { get; set; }
 	}
+
 
 }

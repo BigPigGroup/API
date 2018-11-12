@@ -1,7 +1,5 @@
-﻿using System;
-using API.Models;
+﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace API.Context {
 
@@ -12,13 +10,21 @@ namespace API.Context {
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			if (!optionsBuilder.IsConfigured) {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 				optionsBuilder.UseSqlServer("Server=localhost;Database=PigFarmDB;Trusted_Connection=True;");
 			}
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
-			modelBuilder.Entity<TemperatureSensor>().HasKey(c => new {c.BoxId, c.Cts});
+			modelBuilder.Entity<Box>().HasKey(c => new {BoxID = c.BoxNo});
+			modelBuilder.Entity<TemperatureSensor>().HasKey(c => new {c.BoxNo, c.CtsNo});
+
+			//Set Foreign key on 
+			modelBuilder.Entity<Box>()
+				.HasOne(a => a.TemperatureSensor)
+				.WithOne(b => b.Box)
+				.HasForeignKey<TemperatureSensor>(b => b.BoxNo);
+			//Add index but allow duplicate values by setting IsUnique(false)
+			modelBuilder.Entity<TemperatureSensor>().HasIndex(u => u.BoxNo).IsUnique(false);
 		}
 
 		public DbSet<Box> Box { get; set; }
